@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DbGraf2.Models.MeteorologiData>
+﻿@model DbGraf2.viewmodels.ChartViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -9,36 +9,79 @@
     <img src="@Url.Action("CreateLineChartActionResult")"/>
 </p>
 
+    @using (Html.BeginForm("ChartBool", "MeteorologiDatas"))
+    {
+    <div>
+        @Html.CheckBoxFor(model => model.ShowWindSpeed)
+        - 
+        @Html.DisplayNameFor(model => model.Data.First().WindSpeed)
+    </div>
+
+    <div>
+        @Html.CheckBoxFor(model => model.ShowHumidity)
+        -
+        @Html.DisplayNameFor(model => model.Data.First().Humidity)
+    </div>
+
+    <div>
+        @Html.CheckBoxFor(model => model.ShowPressure)
+        -
+        @Html.DisplayNameFor(model => model.Data.First().Pressure)
+        
+    </div>
+
+    <div>
+        @Html.CheckBoxFor(model => model.ShowRadiation)
+        -
+        @Html.DisplayNameFor(model => model.Data.First().Radiation)
+    </div>
+
+    <div>
+        @Html.CheckBoxFor(model => model.ShowTemperature)
+        -
+        @Html.DisplayNameFor(model => model.Data.First().Temperature)
+    </div>
+
+    <div>
+        @Html.CheckBoxFor(model => model.ShowWindDirection)
+        -
+        @Html.DisplayNameFor(model => model.Data.First().WindDirection)
+    </div>
+
+    <button type="submit">Submit</button>
+}
+    
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.StartDateTime)
+            @Html.DisplayNameFor(model => model.Data.First().StartDateTime))
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.WindDirection)
+            @Html.DisplayNameFor(model => model.Data.First().WindDirection)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.WindSpeed)
+            @Html.DisplayNameFor(model => model.Data.First().WindSpeed)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Temperature)
+            @Html.DisplayNameFor(model => model.Data.First().Temperature)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Humidity)
+            @Html.DisplayNameFor(model => model.Data.First().Humidity)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Radiation)
+            @Html.DisplayNameFor(model => model.Data.First().Radiation)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Pressure)
+            @Html.DisplayNameFor(model => model.Data.First().Pressure)
         </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Data)
     {
         <tr>
             <td>

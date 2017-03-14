@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using DbGraf2.Models;
+using DbGraf2.viewmodels;
 
 namespace DbGraf2.Controllers
 {
@@ -18,7 +19,10 @@ namespace DbGraf2.Controllers
         // GET: MeteorologiDatas
         public ActionResult Index()
         {
-            return View(db.MeteorologiData.Take(500).ToList());
+            var viewModel = new ChartViewModel();
+
+            viewModel.Data = db.MeteorologiData.Take(500).ToList();
+            return View(viewModel);
         }
 
         // GET: MeteorologiDatas/Details/5
@@ -151,31 +155,64 @@ namespace DbGraf2.Controllers
 
             return File(finalechart, "image/bytes");
         }
-
-        public ActionResult ChartboolActionResult()
+        [HttpPost, ActionName("ChartBool")]
+        public ActionResult ChartboolActionResult(ChartViewModel viewModel)
         {
-            //var HentData = db.MeteorologiData.Take(500).ToString();
+            var HentData = db.MeteorologiData.Take(500);
 
-            //var dataChart = new Chart(width: 800, height: 400);
-            //bool windSpeedY;
-            //bool windDirectionY;
-            //bool humidityY;
-            //bool temperatureY;
-            //bool dateTimeY;
-            //bool radiationY;
-            //bool pressureY;
+            var dataChart = new Chart(width: 800, height: 400);
 
-            //foreach (var v in HentData)
-            //{
-            //}
-            //if (windSpeedY)
-            //{
-            //    dataChart.AddSeries(yValues:  )
-            //}
-            
+            var DataWindSpeed = new List<double?>();
+            var DataWindDirection = new List<double?>();
+            var DataHumidity = new List<double?>();
+            var DataTemperature = new List<double?>();
+            var DataPressure = new List<double?>();
+            var DataRadiation = new List<double?>();
+            var DataDateTime = new List<DateTime?>();
+
+            foreach (var data in HentData)
+            {
+                DataWindSpeed.Add(data.WindSpeed);
+                DataWindDirection.Add(data.WindDirection);
+                DataHumidity.Add(data.Humidity);
+                DataTemperature.Add(data.Temperature);
+                DataPressure.Add(data.Pressure);
+                DataRadiation.Add(data.Radiation);
+                DataDateTime.Add(data.StartDateTime);
 
 
-            //dataChart.AddSeries(xValue: data)
+
+            }
+            if (viewModel.ShowWindSpeed)
+            {
+                dataChart.AddSeries(xValue: DataDateTime, yValues: DataWindSpeed.ToArray());
+               
+            }
+            if (viewModel.ShowWindDirection)
+            {
+                dataChart.AddSeries(xValue: DataDateTime, yValues: DataWindDirection.ToArray());
+            }
+            if (viewModel.ShowHumidity)
+            {
+                dataChart.AddSeries(xValue: DataDateTime, yValues: DataHumidity.ToArray());
+            }
+            if (viewModel.ShowTemperature)
+            {
+                dataChart.AddSeries(xValue: DataDateTime, yValues: DataTemperature.ToArray());
+            }
+            if (viewModel.ShowPressure)
+            {
+                dataChart.AddSeries(xValue: DataDateTime, yValues: DataPressure.ToArray());
+            }
+            if (viewModel.ShowRadiation)
+            {
+                dataChart.AddSeries(xValue: DataDateTime, yValues: DataRadiation.ToArray());
+            }
+
+           var returnChart = dataChart.GetBytes("png");
+
+            return File(returnChart, "image/bytes");
+
         }
 
 

@@ -15,6 +15,7 @@ namespace DbGraf2.Controllers
     public class MeteorologiDatasController : Controller
     {
         private VillumResearchXMLEntities db = new VillumResearchXMLEntities();
+        public Chart Chart { get; set; }          
 
         // GET: MeteorologiDatas
         public ActionResult Index()
@@ -25,102 +26,109 @@ namespace DbGraf2.Controllers
             return View(viewModel);
         }
 
-        // GET: MeteorologiDatas/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MeteorologiData meteorologiData = db.MeteorologiData.Find(id);
-            if (meteorologiData == null)
-            {
-                return HttpNotFound();
-            }
-            return View(meteorologiData);
-        }
+        //// GET: MeteorologiDatas/Details/5
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    MeteorologiData meteorologiData = db.MeteorologiData.Find(id);
+        //    if (meteorologiData == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(meteorologiData);
+        //}
 
-        // GET: MeteorologiDatas/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //// GET: MeteorologiDatas/Create
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
-        // POST: MeteorologiDatas/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,StartDateTime,WindDirection,WindSpeed,Temperature,Humidity,Radiation,Pressure")] MeteorologiData meteorologiData)
-        {
-            if (ModelState.IsValid)
-            {
-                db.MeteorologiData.Add(meteorologiData);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //// POST: MeteorologiDatas/Create
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "Id,StartDateTime,WindDirection,WindSpeed,Temperature,Humidity,Radiation,Pressure")] MeteorologiData meteorologiData)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.MeteorologiData.Add(meteorologiData);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-            return View(meteorologiData);
-        }
+        //    return View(meteorologiData);
+        //}
 
-        // GET: MeteorologiDatas/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MeteorologiData meteorologiData = db.MeteorologiData.Find(id);
-            if (meteorologiData == null)
-            {
-                return HttpNotFound();
-            }
-            return View(meteorologiData);
-        }
+        //// GET: MeteorologiDatas/Edit/5
+        //public ActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    MeteorologiData meteorologiData = db.MeteorologiData.Find(id);
+        //    if (meteorologiData == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(meteorologiData);
+        //}
 
-        // POST: MeteorologiDatas/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,StartDateTime,WindDirection,WindSpeed,Temperature,Humidity,Radiation,Pressure")] MeteorologiData meteorologiData)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(meteorologiData).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(meteorologiData);
-        }
+        //// POST: MeteorologiDatas/Edit/5
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "Id,StartDateTime,WindDirection,WindSpeed,Temperature,Humidity,Radiation,Pressure")] MeteorologiData meteorologiData)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(meteorologiData).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(meteorologiData);
+        //}
 
-        // GET: MeteorologiDatas/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MeteorologiData meteorologiData = db.MeteorologiData.Find(id);
-            if (meteorologiData == null)
-            {
-                return HttpNotFound();
-            }
-            return View(meteorologiData);
-        }
+        //// GET: MeteorologiDatas/Delete/5
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    MeteorologiData meteorologiData = db.MeteorologiData.Find(id);
+        //    if (meteorologiData == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(meteorologiData);
+        //}
 
-        // POST: MeteorologiDatas/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            MeteorologiData meteorologiData = db.MeteorologiData.Find(id);
-            db.MeteorologiData.Remove(meteorologiData);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //// POST: MeteorologiDatas/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    MeteorologiData meteorologiData = db.MeteorologiData.Find(id);
+        //    db.MeteorologiData.Remove(meteorologiData);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         public ActionResult CreateLineChartActionResult()
+        {
+            CreateChart();
+            var finalechart = Chart.GetBytes("png");
+            return File(finalechart, "image/bytes");
+        }
+
+        public void CreateChart()
         {
             var dataHent = db.MeteorologiData.Take(500);
             var data1 = new List<DateTime?>();
@@ -132,10 +140,10 @@ namespace DbGraf2.Controllers
                 data1.Add(data.StartDateTime);
                 data2.Add(data.WindSpeed);
                 data3.Add(data.Humidity);
-                
+
             }
 
-            var myChart = new Chart(width: 800, height: 400)
+            Chart = new Chart(width: 800, height: 400)
                 .AddTitle("Data")
                 .AddSeries(
                     name: "WindsSpeeds",
@@ -149,12 +157,8 @@ namespace DbGraf2.Controllers
                     chartType: "Line",
                     xValue: data1.ToArray(),
                     yValues: data3.ToArray());
-
-            var finalechart = myChart.GetBytes("png");
-
-
-            return File(finalechart, "image/bytes");
         }
+
         [HttpPost, ActionName("ChartBool")]
         public ActionResult ChartboolActionResult(ChartViewModel viewModel)
         {
@@ -215,16 +219,13 @@ namespace DbGraf2.Controllers
 
         }
 
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }

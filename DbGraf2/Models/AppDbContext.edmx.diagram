@@ -4,8 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="591ced5b9d7d4fa7b3f8b903e227dc77" Name="Diagram1">
-        <EntityTypeShape EntityType="VillumResearchXMLModel.MeteorologiData" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="b3c48542287a4b56b4ee9554b449af28" Name="Diagram1">
+        <EntityTypeShape EntityType="VillumResearchXMLModel.MercuryData" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VillumResearchXMLModel.MeteorologiData" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -179,6 +179,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppDbContext.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\MercuryData.cs">
+      <DependentUpon>AppDbContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\MeteorologiData.cs">
       <DependentUpon>AppDbContext.tt</DependentUpon>
     </Compile>
@@ -246,6 +249,7 @@
     <Content Include="Views\MeteorologiDatas\Details.cshtml" />
     <Content Include="Views\MeteorologiDatas\Edit.cshtml" />
     <Content Include="Views\MeteorologiDatas\Index.cshtml" />
+    <Content Include="Views\MeteorologiDatas\Mercury.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

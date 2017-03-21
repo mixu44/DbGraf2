@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="VillumResearchXMLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MercuryData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateTimeStart" Type="datetime" />
+          <Property Name="Hg" Type="float" />
+          <Property Name="unit" Type="varchar" MaxLength="10" />
+        </EntityType>
         <EntityType Name="MeteorologiData">
           <Key>
             <PropertyRef Name="Id" />
@@ -19,6 +28,7 @@
           <Property Name="Pressure" Type="float" />
         </EntityType>
         <EntityContainer Name="VillumResearchXMLModelStoreContainer">
+          <EntitySet Name="MercuryData" EntityType="Self.MercuryData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MeteorologiData" EntityType="Self.MeteorologiData" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
@@ -26,6 +36,15 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="VillumResearchXMLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MercuryData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateTimeStart" Type="DateTime" Precision="3" />
+          <Property Name="Hg" Type="Double" />
+          <Property Name="unit" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="MeteorologiData">
           <Key>
             <PropertyRef Name="Id" />
@@ -40,6 +59,7 @@
           <Property Name="Pressure" Type="Double" />
         </EntityType>
         <EntityContainer Name="VillumResearchXMLEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MercuryData" EntityType="Self.MercuryData" />
           <EntitySet Name="MeteorologiData" EntityType="Self.MeteorologiData" />
         </EntityContainer>
       </Schema>
@@ -48,6 +68,16 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="VillumResearchXMLModelStoreContainer" CdmEntityContainer="VillumResearchXMLEntities">
+          <EntitySetMapping Name="MercuryData">
+            <EntityTypeMapping TypeName="VillumResearchXMLModel.MercuryData">
+              <MappingFragment StoreEntitySet="MercuryData">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DateTimeStart" ColumnName="DateTimeStart" />
+                <ScalarProperty Name="Hg" ColumnName="Hg" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="MeteorologiData">
             <EntityTypeMapping TypeName="VillumResearchXMLModel.MeteorologiData">
               <MappingFragment StoreEntitySet="MeteorologiData">

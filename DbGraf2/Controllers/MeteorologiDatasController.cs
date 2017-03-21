@@ -88,6 +88,12 @@ namespace DbGraf2.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Mercury()
+        {
+            var data = db.MercuryData.Take(100).ToList();
+            return View(data);
+        }
+
         //protected override void Dispose(bool disposing)
         //{
         //    if (disposing)

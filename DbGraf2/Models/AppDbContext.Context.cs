@@ -25,6 +25,7 @@ namespace DbGraf2.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<MercuryData> MercuryData { get; set; }
         public virtual DbSet<MeteorologiData> MeteorologiData { get; set; }
     }
 }

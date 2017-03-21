@@ -15,7 +15,8 @@ namespace DbGraf2.Controllers
     public class MeteorologiDatasController : Controller
     {
         private VillumResearchXMLEntities db = new VillumResearchXMLEntities();
-        public Chart Chart { get; set; }          
+
+        public static Chart Chart { get; set; }          
 
         // GET: MeteorologiDatas
         public ActionResult Index()
@@ -123,7 +124,7 @@ namespace DbGraf2.Controllers
 
         public ActionResult CreateLineChartActionResult()
         {
-            CreateChart();
+            
             var finalechart = Chart.GetBytes("png");
             return File(finalechart, "image/bytes");
         }
@@ -164,7 +165,7 @@ namespace DbGraf2.Controllers
         {
             var HentData = db.MeteorologiData.Take(500);
 
-            var dataChart = new Chart(width: 800, height: 400);
+             Chart = new Chart(width: 800, height: 400);
 
             var DataWindSpeed = new List<double?>();
             var DataWindDirection = new List<double?>();
@@ -189,33 +190,34 @@ namespace DbGraf2.Controllers
             }
             if (viewModel.ShowWindSpeed)
             {
-                dataChart.AddSeries(xValue: DataDateTime, yValues: DataWindSpeed.ToArray());
+                Chart.AddSeries(xValue: DataDateTime, yValues: DataWindSpeed.ToArray());
                
             }
             if (viewModel.ShowWindDirection)
             {
-                dataChart.AddSeries(xValue: DataDateTime, yValues: DataWindDirection.ToArray());
+                Chart.AddSeries(xValue: DataDateTime, yValues: DataWindDirection.ToArray());
             }
             if (viewModel.ShowHumidity)
             {
-                dataChart.AddSeries(xValue: DataDateTime, yValues: DataHumidity.ToArray());
+                Chart.AddSeries(xValue: DataDateTime, yValues: DataHumidity.ToArray());
             }
             if (viewModel.ShowTemperature)
             {
-                dataChart.AddSeries(xValue: DataDateTime, yValues: DataTemperature.ToArray());
+                Chart.AddSeries(xValue: DataDateTime, yValues: DataTemperature.ToArray());
             }
             if (viewModel.ShowPressure)
             {
-                dataChart.AddSeries(xValue: DataDateTime, yValues: DataPressure.ToArray());
+                Chart.AddSeries(xValue: DataDateTime, yValues: DataPressure.ToArray());
             }
             if (viewModel.ShowRadiation)
             {
-                dataChart.AddSeries(xValue: DataDateTime, yValues: DataRadiation.ToArray());
+                Chart.AddSeries(xValue: DataDateTime, yValues: DataRadiation.ToArray());
             }
 
-           var returnChart = dataChart.GetBytes("png");
 
-            return File(returnChart, "image/bytes");
+            return RedirectToAction("Index");
+
+
 
         }
 

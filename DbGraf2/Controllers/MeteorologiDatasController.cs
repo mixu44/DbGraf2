@@ -40,8 +40,8 @@ namespace DbGraf2.Controllers
         }
 
         // This method creates and set our chart.
-        [HttpPost, ActionName("ChartBool")]
-        public ActionResult ChartboolActionResult(ChartViewModel viewModel)
+        [HttpPost]
+        public ActionResult PopulateChart(ChartViewModel viewModel)
         {
             // Get data for our chart
             var dbData = db.MeteorologiData.Take(100);

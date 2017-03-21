@@ -9,7 +9,7 @@
     <img src="@Url.Action("GetChart")"/>
 </p>
 
-    @using (Html.BeginForm("ChartBool", "MeteorologiDatas"))
+    @using (Html.BeginForm("PopulateChart", "MeteorologiDatas"))
     {
     <div>
         @Html.CheckBoxFor(model => model.ShowWindSpeed)

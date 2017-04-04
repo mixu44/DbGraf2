@@ -14,7 +14,6 @@ namespace DbGraf2.Controllers
 {
     public class MeteorologiDatasController : Controller
     {
-        // Test comment
         // Our db context
         private VillumResearchXMLEntities db = new VillumResearchXMLEntities();
 

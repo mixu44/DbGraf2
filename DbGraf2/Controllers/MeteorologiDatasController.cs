@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using DbGraf2.Models;
 using DbGraf2.viewmodels;
 using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace DbGraf2.Controllers
 {
@@ -37,6 +38,10 @@ namespace DbGraf2.Controllers
 
         public ActionResult GetChart()
         {
+
+
+
+
             var finalechart = Chart.GetBytes("png");
             return File(finalechart, "image/bytes");
         }
@@ -96,6 +101,25 @@ namespace DbGraf2.Controllers
             return View(data);
         }
 
+
+        public void MongoStuff()
+        {
+            MongoClient client = new MongoClient("mongodb://localhost:27017");
+            IMongoDatabase db = client.GetDatabase("Meteorologi");
+            IMongoCollection<BsonDocument> carCollection = db.GetCollection<BsonDocument>("car");
+            var document = new BsonDocument() {
+                { "name", "MongoDB" },
+                { "type", "Database" },
+                { "count", 1 },
+                {
+                    "info", new BsonDocument() {
+                            { "x", 203 },
+                            { "y", 102 }
+                    }
+                }
+            };
+            carCollection.InsertOne(document);
+        }
         //protected override void Dispose(bool disposing)
         //{
         //    if (disposing)

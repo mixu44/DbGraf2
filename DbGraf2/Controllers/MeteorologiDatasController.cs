@@ -9,6 +9,7 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using DbGraf2.Models;
 using DbGraf2.viewmodels;
+using MongoDB.Driver;
 
 namespace DbGraf2.Controllers
 {
@@ -16,6 +17,7 @@ namespace DbGraf2.Controllers
     {
         // Our db context
         private VillumResearchXMLEntities db = new VillumResearchXMLEntities();
+        
 
         // The chart containing our data
         public static Chart Chart { get; set; }          

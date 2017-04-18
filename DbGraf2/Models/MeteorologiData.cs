@@ -9,12 +9,15 @@
 
 namespace DbGraf2.Models
 {
+    using MongoDB.Bson;
+    using MongoDB.Bson.Serialization.Attributes;
     using System;
     using System.Collections.Generic;
-    
+    using System.Xml.Serialization;
+
     public partial class MeteorologiData
     {
-        public int Id { get; set; }
+        public ObjectId Id { get; set; }
         public Nullable<System.DateTime> StartDateTime { get; set; }
         public Nullable<double> WindDirection { get; set; }
         public Nullable<double> WindSpeed { get; set; }

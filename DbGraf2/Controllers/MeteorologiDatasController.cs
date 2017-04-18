@@ -17,8 +17,13 @@ namespace DbGraf2.Controllers
     public class MeteorologiDatasController : Controller
     {
         // Our db context
-        private VillumResearchXMLEntities db = new VillumResearchXMLEntities();
-        
+        //private VillumResearchXMLEntities db = new VillumResearchXMLEntities();
+        public IEnumerable<MeteorologiData> meteorologiData { get; set; }
+
+        public MeteorologiDatasController()
+        {
+            meteorologiData = GetDataFromMongoDB();
+        }
 
         // The chart containing our data
         public static Chart Chart { get; set; }          
@@ -29,8 +34,11 @@ namespace DbGraf2.Controllers
             // ViewModel containing data for the table.
             var viewModel = new ChartViewModel();
 
-            // Get table data from the db.
-            viewModel.Data = db.MeteorologiData.Take(100).ToList();
+            // SQL
+            //viewModel.Data = db.MeteorologiData.Take(100).ToList();
+
+            // MONGODB
+            viewModel.Data = meteorologiData;
 
             // Show the data in the view
             return View(viewModel);
@@ -38,10 +46,6 @@ namespace DbGraf2.Controllers
 
         public ActionResult GetChart()
         {
-
-
-
-
             var finalechart = Chart.GetBytes("png");
             return File(finalechart, "image/bytes");
         }
@@ -50,8 +54,12 @@ namespace DbGraf2.Controllers
         [HttpPost]
         public ActionResult PopulateChart(ChartViewModel viewModel)
         {
-            // Get data for our chart
-            var dbData = db.MeteorologiData.Take(100);
+            // SQL
+            //var dbData = db.MeteorologiData.Take(100);
+
+            // MONGODB
+            var dbData = meteorologiData;
+
 
             // Instantiate our chart
             Chart = new Chart(width: 800, height: 400);
@@ -95,38 +103,38 @@ namespace DbGraf2.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Mercury()
-        {
-            var data = db.MercuryData.Take(100).ToList();
-            return View(data);
-        }
+        //public ActionResult Mercury()
+        //{
+        //    var data = db.MercuryData.Take(100).ToList();
+        //    return View(data);
+        //}
 
 
-        public void MongoStuff()
+
+        public IEnumerable<MeteorologiData> GetDataFromMongoDB()
         {
             MongoClient client = new MongoClient("mongodb://localhost:27017");
             IMongoDatabase db = client.GetDatabase("Meteorologi");
-            IMongoCollection<BsonDocument> carCollection = db.GetCollection<BsonDocument>("car");
-            var document = new BsonDocument() {
-                { "name", "MongoDB" },
-                { "type", "Database" },
-                { "count", 1 },
-                {
-                    "info", new BsonDocument() {
-                            { "x", 203 },
-                            { "y", 102 }
-                    }
-                }
-            };
-            carCollection.InsertOne(document);
+            IMongoCollection<MeteorologiData> collection = db.GetCollection<MeteorologiData>("meteorologi");
+
+            List<MeteorologiData> data = new List<MeteorologiData>();
+
+            var mongoCollection = collection.AsQueryable().Take(100);
+
+            foreach (var item in mongoCollection)
+            {
+                data.Add(new MeteorologiData() {
+                    StartDateTime = item.StartDateTime,
+                    WindDirection = item.WindDirection,
+                    WindSpeed = item.WindSpeed,
+                    Temperature = item.Temperature,
+                    Humidity = item.Humidity,
+                    Radiation = item.Radiation,
+                    Pressure = item.Pressure,
+                });
+            }
+
+            return data;
         }
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
     }
 }

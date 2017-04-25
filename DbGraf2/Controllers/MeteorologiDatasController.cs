@@ -19,10 +19,12 @@ namespace DbGraf2.Controllers
         // Our db context
         //private VillumResearchXMLEntities db = new VillumResearchXMLEntities();
         public IEnumerable<MeteorologiData> meteorologiData { get; set; }
-
+        public IEnumerable<MercuryData> mercuryData { get; set; }
         public MeteorologiDatasController()
         {
-            meteorologiData = GetDataFromMongoDB();
+            meteorologiData = GetMeteorologiDataFromMongoDB();
+            mercuryData = GetMercuryDataFromMongoDB();
+
         }
 
         // The chart containing our data
@@ -111,7 +113,7 @@ namespace DbGraf2.Controllers
 
 
 
-        public IEnumerable<MeteorologiData> GetDataFromMongoDB()
+        public IEnumerable<MeteorologiData> GetMeteorologiDataFromMongoDB()
         {
             MongoClient client = new MongoClient("mongodb://localhost:27017");
             IMongoDatabase db = client.GetDatabase("Meteorologi");
@@ -134,6 +136,27 @@ namespace DbGraf2.Controllers
                 });
             }
 
+            return data;
+        }
+
+        public IEnumerable<MercuryData> GetMercuryDataFromMongoDB()
+        {
+            MongoClient client = new MongoClient("mongodb://localhost:27017");
+            IMongoDatabase db = client.GetDatabase("Meteorologi");
+            IMongoCollection<MercuryData> collection = db.GetCollection<MercuryData>("mercury");
+
+            List<MercuryData> data = new List<MercuryData>();
+            var mongoCollection = collection.AsQueryable().Take(100);
+
+            foreach (var item in mongoCollection)
+            {
+                data.Add(new MercuryData
+                {
+                    DateTimeStart = item.DateTimeStart,
+                    Hg = item.Hg,
+                    unit = item.unit
+                });
+            }
             return data;
         }
     }

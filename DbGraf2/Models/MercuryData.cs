@@ -9,12 +9,13 @@
 
 namespace DbGraf2.Models
 {
+    using MongoDB.Bson;
     using System;
     using System.Collections.Generic;
     
     public partial class MercuryData
     {
-        public int Id { get; set; }
+        public ObjectId Id { get; set; }
         public Nullable<System.DateTime> DateTimeStart { get; set; }
         public Nullable<double> Hg { get; set; }
         public string unit { get; set; }
